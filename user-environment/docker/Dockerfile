@@ -1,7 +1,9 @@
 FROM jupyter/scipy-notebook:2021-09-07
 
 LABEL maintainer="pontus.lurcock@brockmann-consult.de"
-LABEL name=xcube-avl
+LABEL name="avl-user-env"
+LABEL version="1.0.0"
+LABEL description="User environment for AVL JupyterHub deployment"
 
 USER root
 
