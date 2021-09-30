@@ -4,14 +4,25 @@
 # credentials cause Docker-Hub-based builds to fail on quay.io; see
 # https://issues.redhat.com/browse/PROJQUAY-1299?_sscc=t for details.
 
-FROM quay.io/bcdev/scipy-notebook:2021-09-07
+FROM quay.io/bcdev/scipy-notebook:2021-09-27
 
 LABEL maintainer="pontus.lurcock@brockmann-consult.de"
 LABEL name="avl-user-env"
-LABEL version="1.0.1"
+LABEL version="1.0.2"
 LABEL description="User environment for AVL JupyterHub deployment"
 
 USER root
+
+
+# Upgrade some packages to fix known vulnerabilities in the base image.
+
+ENV DEBIAN_FRONTEND noninteractive
+RUN apt-get update --yes && \
+    apt-get install --yes --no-install-recommends \
+    vim==2:8.1.2269-1ubuntu5.3 \
+    libgcrypt20=1.8.5-5ubuntu1.1 && \
+    apt-get clean && rm -rf /var/lib/apt/lists/*
+
 
 # The Jupyter images have mamba preinstalled and conda-forge as the default
 # channel. Package versions are explicitly pinned to ensure a well-defined,
