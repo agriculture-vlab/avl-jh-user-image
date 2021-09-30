@@ -19,7 +19,7 @@ USER root
 ENV DEBIAN_FRONTEND noninteractive
 RUN apt-get update --yes && \
     apt-get install --yes --no-install-recommends \
-    vim==2:8.1.2269-1ubuntu5.3 \
+    vim=2:8.1.2269-1ubuntu5.3 \
     libgcrypt20=1.8.5-5ubuntu1.1 && \
     apt-get clean && rm -rf /var/lib/apt/lists/*
 
