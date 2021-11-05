@@ -1,3 +1,5 @@
+[![Docker Repository on Quay](https://quay.io/repository/bcdev/avl-user/status "Docker Repository on Quay")](https://quay.io/repository/bcdev/avl-user)
+
 # AVL user environment docker image configuration
 
 This repository contains a configuration (currently just a dockerfile)
