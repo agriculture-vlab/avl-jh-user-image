@@ -8,7 +8,7 @@ FROM quay.io/bcdev/scipy-notebook:2021-09-27
 
 LABEL maintainer="pontus.lurcock@brockmann-consult.de"
 LABEL name="avl-user-env"
-LABEL version="1.0.3"
+LABEL version="1.0.4"
 LABEL description="User environment for AVL JupyterHub deployment"
 
 USER root
@@ -20,6 +20,8 @@ ENV DEBIAN_FRONTEND noninteractive
 RUN apt-get update --yes && \
     apt-get install --yes --no-install-recommends \
     vim=2:8.1.2269-1ubuntu5.3 \
+    python3.8=3.8.10-0ubuntu1~20.04.1 \
+    libcaca0=0.99.beta19-2.1ubuntu1.20.04.2 \
     libgcrypt20=1.8.5-5ubuntu1.1 && \
     apt-get clean && rm -rf /var/lib/apt/lists/*
 
@@ -29,8 +31,8 @@ RUN apt-get update --yes && \
 # reproducible environment.
 
 RUN mamba install --quiet --yes \
-    'xcube==0.9.0' \
-    'xcube-sh==0.9.0' \
+    'xcube==0.9.1' \
+    'xcube-sh==0.9.1' \
     'xcube-cci==0.9.0' \
     'xcube-cds==0.9.1' \
     'xcube_geodb==1.0.2' \
