@@ -20,11 +20,11 @@ ENV DEBIAN_FRONTEND noninteractive
 RUN apt-get update --yes && \
     apt-get install --yes --no-install-recommends \
     libcaca0=0.99.beta19-2.1ubuntu1.20.04.2 \
-    libgcrypt20=1.8.5-5ubuntu1.1 && \
+    libgcrypt20=1.8.5-5ubuntu1.1 \
     libicu66=66.1-2ubuntu2.1 \
     python3.8=3.8.10-0ubuntu1~20.04.1 \
     vim-tiny=2:8.1.2269-1ubuntu5.4 \
-    apt-get clean && rm -rf /var/lib/apt/lists/*
+    && apt-get clean && rm -rf /var/lib/apt/lists/*
 
 
 # The Jupyter images have mamba preinstalled and conda-forge as the default
