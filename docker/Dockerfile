@@ -33,6 +33,7 @@ RUN apt-get update --yes && \
 
 RUN mamba install --quiet --yes \
     'jupyterlab-geojson==3.1.2' \
+    'jupyterlab-git==0.34.0' \
     'rasterstats==0.15.0' \
     'rioxarray==0.7.1' \
     'sentinelhub==3.3.2' \
