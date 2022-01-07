@@ -29,4 +29,4 @@ image, since some additional configuration is carried out by Helm during
 cluster deployment. In particular, when running the user image locally with
 Docker, no environment variables are initialized with credentials for external
 service access (e.g. geoDB), so if needed these must be set by the user (e.g.
-with `os.environ['GEODB_AUTH_CLIENT_ID'] = <my-client-id>'`, etc.).
+with `os.environ['GEODB_AUTH_CLIENT_ID'] = '<my-client-id>'`, etc.).
