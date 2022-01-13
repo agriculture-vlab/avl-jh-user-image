@@ -20,12 +20,14 @@ USER root
 ENV DEBIAN_FRONTEND noninteractive
 RUN apt-get update --yes && \
     apt-get install --yes --no-install-recommends \
+    ghostscript=9.50~dfsg-5ubuntu4.5 \
     libcaca0=0.99.beta19-2.1ubuntu1.20.04.2 \
     libgcrypt20=1.8.5-5ubuntu1.1 \
     libicu66=66.1-2ubuntu2.1 \
     libnss3=2:3.49.1-1ubuntu1.6 \
     otb-bin=7.0.0+dfsg-2build3 \
     python3.8=3.8.10-0ubuntu1~20.04.2 \
+    systemd=245.4-4ubuntu3.15 \
     vim-tiny=2:8.1.2269-1ubuntu5.4 \
     && apt-get clean && rm -rf /var/lib/apt/lists/*
 
