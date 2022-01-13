@@ -8,22 +8,28 @@ FROM quay.io/bcdev/scipy-notebook:2021-09-27
 
 LABEL maintainer="pontus.lurcock@brockmann-consult.de"
 LABEL name="avl-user-env"
-LABEL version="1.0.4"
+LABEL version="1.0.5"
 LABEL description="User environment for AVL JupyterHub deployment"
 
 USER root
 
 
-# Upgrade some packages to fix known vulnerabilities in the base image.
+# Upgrade some packages to fix known vulnerabilities in the base image,
+# and install additional packages.
 
 ENV DEBIAN_FRONTEND noninteractive
 RUN apt-get update --yes && \
     apt-get install --yes --no-install-recommends \
-    vim=2:8.1.2269-1ubuntu5.3 \
-    python3.8=3.8.10-0ubuntu1~20.04.1 \
+    ghostscript=9.50~dfsg-5ubuntu4.5 \
     libcaca0=0.99.beta19-2.1ubuntu1.20.04.2 \
-    libgcrypt20=1.8.5-5ubuntu1.1 && \
-    apt-get clean && rm -rf /var/lib/apt/lists/*
+    libgcrypt20=1.8.5-5ubuntu1.1 \
+    libicu66=66.1-2ubuntu2.1 \
+    libnss3=2:3.49.1-1ubuntu1.6 \
+    otb-bin=7.0.0+dfsg-2build3 \
+    python3.8=3.8.10-0ubuntu1~20.04.2 \
+    systemd=245.4-4ubuntu3.15 \
+    vim-tiny=2:8.1.2269-1ubuntu5.4 \
+    && apt-get clean && rm -rf /var/lib/apt/lists/*
 
 
 # The Jupyter images have mamba preinstalled and conda-forge as the default
@@ -31,14 +37,22 @@ RUN apt-get update --yes && \
 # reproducible environment.
 
 RUN mamba install --quiet --yes \
-    'xcube==0.9.1' \
-    'xcube-sh==0.9.1' \
-    'xcube-cci==0.9.0' \
+    'jupyterlab-geojson==3.1.2' \
+    'jupyterlab-git==0.34.0' \
+    'rasterstats==0.15.0' \
+    'rioxarray==0.7.1' \
+    'sentinelhub==3.3.2' \
+    'xarray==0.20.1' \
+    'xcube==0.9.2' \
+    'xcube-cci==0.9.3' \
     'xcube-cds==0.9.1' \
     'xcube_geodb==1.0.2' \
-    'sentinelhub==3.3.2' \
-    'rasterstats==0.15.0' \
-    'rioxarray==0.7.1'
+    'xcube-sh==0.9.2'
+
+
+# Install the avl package from its GitHub repository.
+
+RUN python3 -m pip install --no-deps --no-build-isolation git+https://github.com/agriculture-vlab/agriculture-vlab
 
 USER ${NB_UID}
 
