@@ -46,14 +46,14 @@ RUN mamba install --quiet --yes \
     'pygraphviz==1.9' \
     'python-graphviz==0.19.1' \
     'rasterstats==0.15.0' \
-    'rioxarray==0.7.1' \
+    'rioxarray==0.10.2' \
     'sentinelhub==3.3.2' \
-    'xarray==0.20.1' \
-    'xcube==0.9.2' \
-    'xcube-cci==0.9.3' \
+    'xarray==2022.3.0' \
+    'xcube==0.10.2' \
+    'xcube-cci==0.9.5' \
     'xcube-cds==0.9.1' \
     'xcube_geodb==1.0.2' \
-    'xcube-sh==0.9.2'
+    'xcube-sh==0.9.4'
 
 
 # Install the avl package from its GitHub repository.
