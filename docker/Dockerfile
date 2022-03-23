@@ -29,6 +29,7 @@ RUN apt-get update --yes && \
     python3.8=3.8.10-0ubuntu1~20.04.2 \
     systemd=245.4-4ubuntu3.15 \
     vim-tiny=2:8.1.2269-1ubuntu5.4 \
+    yarn=1.22.5-1 \
     && apt-get clean && rm -rf /var/lib/apt/lists/*
 
 
@@ -37,6 +38,8 @@ RUN apt-get update --yes && \
 # reproducible environment.
 
 RUN mamba install --quiet --yes \
+    'dask==2022.3.0' \
+    'dask-labextension=5.2.0' \
     'jupyterlab-geojson==3.1.2' \
     'jupyterlab-git==0.34.0' \
     'rasterstats==0.15.0' \
