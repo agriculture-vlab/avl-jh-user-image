@@ -39,9 +39,12 @@ RUN apt-get update --yes && \
 
 RUN mamba install --quiet --yes \
     'dask==2022.3.0' \
-    'dask-labextension=5.2.0' \
+    'dask-labextension==5.2.0' \
+    'graphviz==3.0.0' \
     'jupyterlab-geojson==3.1.2' \
     'jupyterlab-git==0.34.0' \
+    'pygraphviz==1.9' \
+    'python-graphviz==0.19.1' \
     'rasterstats==0.15.0' \
     'rioxarray==0.7.1' \
     'sentinelhub==3.3.2' \
