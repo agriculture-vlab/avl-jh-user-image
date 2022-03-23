@@ -8,7 +8,7 @@ FROM quay.io/bcdev/scipy-notebook:2021-09-27
 
 LABEL maintainer="pontus.lurcock@brockmann-consult.de"
 LABEL name="avl-user-env"
-LABEL version="1.0.5"
+LABEL version="1.0.6"
 LABEL description="User environment for AVL JupyterHub deployment"
 
 USER root
