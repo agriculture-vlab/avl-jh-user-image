@@ -41,7 +41,7 @@ RUN mamba install mamba=0.22.1
 # reproducible environment.
 
 RUN mamba install --yes \
-    'avl==0.1.0' \
+    'agriculture-vlab==0.1.0' \
     'dask==2022.3.0' \
     'dask-labextension==5.2.0' \
     'graphviz==2.49.1' \
