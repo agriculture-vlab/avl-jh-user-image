@@ -9,7 +9,7 @@ FROM quay.io/bcdev/scipy-notebook:2021-09-27
 
 LABEL maintainer="pontus.lurcock@brockmann-consult.de"
 LABEL name="avl-user-env"
-LABEL version="1.0.6"
+LABEL version="1.0.7"
 LABEL description="User environment for AVL JupyterHub deployment"
 
 USER root
@@ -26,7 +26,7 @@ RUN apt-get update --yes && \
     libicu66=66.1-2ubuntu2.1 \
     libnss3=2:3.49.1-1ubuntu1.6 \
     otb-bin=7.0.0+dfsg-2build3 \
-    python3.8=3.8.10-0ubuntu1~20.04.2 \
+    python3.8=3.8.10-0ubuntu1~20.04.4 \
     systemd=245.4-4ubuntu3.15 \
     vim-tiny=2:8.1.2269-1ubuntu5.7 \
     yarnpkg=1.22.4-2 \
