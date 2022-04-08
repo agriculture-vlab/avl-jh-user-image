@@ -9,7 +9,7 @@ FROM quay.io/bcdev/scipy-notebook:2021-09-27
 
 LABEL maintainer="pontus.lurcock@brockmann-consult.de"
 LABEL name="avl-user-env"
-LABEL version="1.0.7"
+LABEL version="1.0.8"
 LABEL description="User environment for AVL JupyterHub deployment"
 
 USER root
@@ -32,6 +32,12 @@ RUN apt-get update --yes && \
     yarnpkg=1.22.4-2 \
     && apt-get clean && rm -rf /var/lib/apt/lists/*
 
+# Use the jovyan user for installs in the conda environment to avoid polluting
+# it with files owned by root. The NB_UID environment variable is inherited
+# from the base image.
+
+USER ${NB_UID}
+
 # The Jupyter images have mamba preinstalled and conda-forge as the default
 # channel. First we update mamba to a more recent version.
 
@@ -41,7 +47,7 @@ RUN mamba install mamba=0.22.1
 # reproducible environment.
 
 RUN mamba install --yes \
-    'agriculture-vlab==0.1.0' \
+    'agriculture-vlab==0.1.1' \
     'dask==2022.3.0' \
     'dask-labextension==5.2.0' \
     'graphviz==2.49.1' \
