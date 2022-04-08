@@ -32,6 +32,12 @@ RUN apt-get update --yes && \
     yarnpkg=1.22.4-2 \
     && apt-get clean && rm -rf /var/lib/apt/lists/*
 
+# Use the jovyan user for installs in the conda environment to avoid polluting
+# it with files owned by root. The NB_UID environment variable is inherited
+# from the base image.
+
+USER ${NB_UID}
+
 # The Jupyter images have mamba preinstalled and conda-forge as the default
 # channel. First we update mamba to a more recent version.
 
