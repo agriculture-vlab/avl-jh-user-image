@@ -9,7 +9,7 @@ FROM quay.io/bcdev/scipy-notebook:2022-04-25
 
 LABEL maintainer="pontus.lurcock@brockmann-consult.de"
 LABEL name="avl-user-env"
-LABEL version="1.0.9.dev0"
+LABEL version="1.0.9.dev1"
 LABEL description="User environment for AVL JupyterHub deployment"
 
 USER root
@@ -62,7 +62,7 @@ RUN mamba list
 # Install newer xcube and geoDB versions from their repositories.
 
 RUN pip3 install git+https://github.com/dcs4cop/xcube@6e37dec5ab36
-RUN pip3 install git+https://github.com/dcs4cop/xcube_geodb@03803a7e39d9
+RUN pip3 install git+https://github.com/dcs4cop/xcube-geodb@03803a7e39d9
 
 USER ${NB_UID}
 WORKDIR "${HOME}"
