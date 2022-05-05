@@ -9,7 +9,7 @@ FROM quay.io/bcdev/scipy-notebook:2022-04-25
 
 LABEL maintainer="pontus.lurcock@brockmann-consult.de"
 LABEL name="avl-user-env"
-LABEL version="1.0.9.dev1"
+LABEL version="1.0.9.dev2"
 LABEL description="User environment for AVL JupyterHub deployment"
 
 USER root
@@ -45,6 +45,7 @@ RUN mamba install --yes \
     'graphviz==2.49.1' \
     'jupyterlab-geojson==3.1.2' \
     'jupyterlab-git==0.34.0' \
+    'plotly==5.7.0' \
     'pygraphviz==1.9' \
     'python-graphviz==0.19.1' \
     'rasterstats==0.15.0' \
