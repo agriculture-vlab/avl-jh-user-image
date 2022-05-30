@@ -45,6 +45,7 @@ RUN mamba install --yes \
     'graphviz==2.49.1' \
     'jupyterlab-geojson==3.1.2' \
     'jupyterlab-git==0.34.0' \
+    'nc-time-axis==1.4.1' \
     'plotly==5.7.0' \
     'pygraphviz==1.9' \
     'python-graphviz==0.19.1' \
