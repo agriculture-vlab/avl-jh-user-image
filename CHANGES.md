@@ -1,3 +1,8 @@
+## Changes in 1.1.0
+
+* Use scipy-notebook:2021-11-01 as the base image, to ensure compatibility
+  with chart version 1.2.0 and hub image version 1.2.0.
+
 ## Changes in 1.0.9
 
 * Update base scipy-notebook image from 2021-09-27 to 2022-04-25
