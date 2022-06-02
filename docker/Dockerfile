@@ -4,18 +4,23 @@
 # credentials cause Docker-Hub-based builds to fail on quay.io; see
 # https://issues.redhat.com/browse/PROJQUAY-1299?_sscc=t for details.
 
-# Source: https://github.com/jupyter/docker-stacks/tree/master/scipy-notebook
-FROM quay.io/bcdev/scipy-notebook:2022-04-25
+# Base image source:
+# https://github.com/jupyter/docker-stacks/tree/master/scipy-notebook .
+# The version is carefully selected to match the base-notebook version
+# used for the jupyterhub/k8s-singleuser-sample:1.2.0 image, which is the
+# default user image in the z2jh 1.2.0 Helm chart. This should ensure
+# compatibility with the corresponding hub image and with the chart itself.
+FROM quay.io/bcdev/scipy-notebook:2021-11-01
 
 LABEL maintainer="pontus.lurcock@brockmann-consult.de"
 LABEL name="avl-user-env"
-LABEL version="1.0.9"
+LABEL version="1.1.0.dev0"
 LABEL description="User environment for AVL JupyterHub deployment"
 
 USER root
 
-# Upgrade some packages to fix known vulnerabilities in the base image,
-# and install additional packages.
+# Upgrade some packages to fix known vulnerabilities in the base image
+# and/or install additional packages.
 
 ENV DEBIAN_FRONTEND noninteractive
 RUN apt-get update --yes && \
