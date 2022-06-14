@@ -14,6 +14,8 @@ using the quay.io build service and made available in the Docker repository
 `quay.io/bcdev/avl-user`. The quay.io web page for the Docker repository is at
 <https://quay.io/repository/bcdev/avl-user>.
 
+## Running the user image directly
+
 While the AVL user image is intended for use within with AVL Jupyter Hub
 deployment, it can also be run directly using docker, for example for testing
 before deployment to a cluster:
@@ -30,3 +32,15 @@ cluster deployment. In particular, when running the user image locally with
 Docker, no environment variables are initialized with credentials for external
 service access (e.g. geoDB), so if needed these must be set by the user (e.g.
 with `os.environ['GEODB_AUTH_CLIENT_ID'] = '<my-client-id>'`, etc.).
+
+## jupyterhub package versioning
+
+The Jupyter hub process and single-user notebook server communicate using
+an API provided by the `jupyterhub` package. For reliable operation, the hub and
+user images in a deployment must use the same minor version of this package. You
+can check the `jupyterhub` version in the user image with the following command:
+
+```bash
+docker run -it --rm quay.io/bcdev/avl-user:<tag> \
+    python3 -c 'import jupyterhub; print(jupyterhub.__version__)'
+```
