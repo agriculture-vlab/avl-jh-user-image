@@ -6,11 +6,11 @@
 
 # Base image source:
 # https://github.com/jupyter/docker-stacks/tree/master/scipy-notebook .
-# The version is carefully selected to match the base-notebook version
-# used for the jupyterhub/k8s-singleuser-sample:1.2.0 image, which is the
-# default user image in the z2jh 1.2.0 Helm chart. This should ensure
-# compatibility with the corresponding hub image and with the chart itself.
-FROM quay.io/bcdev/scipy-notebook:2021-11-01
+# The version is carefully selected to provide version 1.5.0 of the jupyterhub
+# package, as used in the jupyterhub/k8s-hub:1.2.0 image specified in the
+# default values of the z2jh 1.2.0 Helm chart. This should ensure compatibility
+# with the corresponding AVL hub image and with the chart itself.
+FROM quay.io/bcdev/scipy-notebook:2021-11-20
 
 LABEL maintainer="pontus.lurcock@brockmann-consult.de"
 LABEL name="avl-user-env"
