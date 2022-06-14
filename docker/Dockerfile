@@ -14,7 +14,7 @@ FROM quay.io/bcdev/scipy-notebook:2021-11-20
 
 LABEL maintainer="pontus.lurcock@brockmann-consult.de"
 LABEL name="avl-user-env"
-LABEL version="1.1.0.dev0"
+LABEL version="1.1.0.dev1"
 LABEL description="User environment for AVL JupyterHub deployment"
 
 USER root
@@ -57,6 +57,7 @@ RUN mamba install --yes \
     'rasterstats==0.15.0' \
     'rioxarray==0.10.2' \
     'sentinelhub==3.3.2' \
+    'voila==0.3.5' \
     'xarray==2022.3.0' \
     'xcube==0.10.2' \
     'xcube-cci==0.9.5' \
