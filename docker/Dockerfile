@@ -4,18 +4,23 @@
 # credentials cause Docker-Hub-based builds to fail on quay.io; see
 # https://issues.redhat.com/browse/PROJQUAY-1299?_sscc=t for details.
 
-# Source: https://github.com/jupyter/docker-stacks/tree/master/scipy-notebook
-FROM quay.io/bcdev/scipy-notebook:2022-04-25
+# Base image source:
+# https://github.com/jupyter/docker-stacks/tree/master/scipy-notebook .
+# The version is carefully selected to provide version 1.5.0 of the jupyterhub
+# package, as used in the jupyterhub/k8s-hub:1.2.0 image specified in the
+# default values of the z2jh 1.2.0 Helm chart. This should ensure compatibility
+# with the corresponding AVL hub image and with the chart itself.
+FROM quay.io/bcdev/scipy-notebook:2021-11-20
 
 LABEL maintainer="pontus.lurcock@brockmann-consult.de"
 LABEL name="avl-user-env"
-LABEL version="1.0.9"
+LABEL version="1.1.0"
 LABEL description="User environment for AVL JupyterHub deployment"
 
 USER root
 
-# Upgrade some packages to fix known vulnerabilities in the base image,
-# and install additional packages.
+# Upgrade some packages to fix known vulnerabilities in the base image
+# and/or install additional packages.
 
 ENV DEBIAN_FRONTEND noninteractive
 RUN apt-get update --yes && \
@@ -52,6 +57,7 @@ RUN mamba install --yes \
     'rasterstats==0.15.0' \
     'rioxarray==0.10.2' \
     'sentinelhub==3.3.2' \
+    'voila==0.3.5' \
     'xarray==2022.3.0' \
     'xcube==0.10.2' \
     'xcube-cci==0.9.5' \
