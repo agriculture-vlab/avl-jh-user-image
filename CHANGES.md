@@ -1,7 +1,8 @@
 ## Changes in 1.1.0
 
 * Use scipy-notebook:2021-11-01 as the base image, to ensure compatibility
-  with chart version 1.2.0 and hub image version 1.2.0.
+  with chart version 1.2.0 and hub image version 1.2.0
+* Add voila package
 
 ## Changes in 1.0.9
 
