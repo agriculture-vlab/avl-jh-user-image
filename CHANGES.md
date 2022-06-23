@@ -1,3 +1,7 @@
+## Changes in 1.1.2
+
+* Add a missing file.
+
 ## Changes in 1.1.1
 
 * Add an ipython initialization script to predefine data stores in notebooks.
