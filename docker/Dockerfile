@@ -14,7 +14,7 @@ FROM quay.io/bcdev/scipy-notebook:2021-11-20
 
 LABEL maintainer="pontus.lurcock@brockmann-consult.de"
 LABEL name="avl-user-env"
-LABEL version="1.1.0"
+LABEL version="1.1.1"
 LABEL description="User environment for AVL JupyterHub deployment"
 
 USER root
@@ -71,6 +71,8 @@ RUN mamba list
 
 RUN pip3 install git+https://github.com/dcs4cop/xcube@6e37dec5ab36
 RUN pip3 install git+https://github.com/dcs4cop/xcube-geodb@03803a7e39d9
+
+COPY init.py /home/jovyan/.ipython/profile_default/startup/init.py
 
 USER ${NB_UID}
 WORKDIR "${HOME}"

@@ -5,9 +5,11 @@
 This repository contains a Dockerfile defining an image that provides a custom
 user environment for use in JupyterHub. The Dockerfile uses an image from
 [Jupyter’s Docker Stacks collection](https://github.com/jupyter/docker-stacks)
-as its base and adds some packages relevant to the AVL (xcube, etc.). See
+as its base and adds some packages relevant to the AVL (xcube, etc.). It
+also adds an initialization script under `/.ipython` which predefines some
+AVL data stores for use in notebooks. See
 <https://zero-to-jupyterhub.readthedocs.io/en/latest/jupyterhub/customizing/user-environment.html>
-for more details.
+for more details on custom user environments in JupyterHub.
 
 The AVL user image is automatically rebuilt on every push to the repository
 using the quay.io build service and made available in the Docker repository

@@ -1,3 +1,7 @@
+## Changes in 1.1.1
+
+* Add an ipython initialization script to predefine data stores in notebooks.
+
 ## Changes in 1.1.0
 
 * Use scipy-notebook:2021-11-01 as the base image, to ensure compatibility
