@@ -60,10 +60,10 @@ RUN mamba install --yes \
     'voila==0.3.5' \
     'xarray==2022.3.0' \
     'xcube==0.11.2' \
-    'xcube-cci==0.9.5' \
+    'xcube-cci==0.9.6' \
     'xcube-cds==0.9.1' \
     'xcube_geodb==1.0.3' \
-    'xcube-sh==0.9.4'
+    'xcube-sh==0.9.5'
 
 RUN mamba list
 

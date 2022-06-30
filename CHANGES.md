@@ -2,6 +2,7 @@
 
 * Use released versions of xcube (0.11.2) and xcube_geodb (1.0.3) rather than
   dev versions
+* Use latest versions of xcube-cci (0.9.6) and xcube-sh (0.9.5)  
 
 ## Changes in 1.1.2
 
