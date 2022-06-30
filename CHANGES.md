@@ -1,3 +1,8 @@
+## Changes in 1.1.3
+
+* Use released versions of xcube (0.11.2) and xcube_geodb (1.0.3) rather than
+  dev versions
+
 ## Changes in 1.1.2
 
 * Add a missing file.

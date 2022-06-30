@@ -14,7 +14,7 @@ FROM quay.io/bcdev/scipy-notebook:2021-11-20
 
 LABEL maintainer="pontus.lurcock@brockmann-consult.de"
 LABEL name="avl-user-env"
-LABEL version="1.1.2"
+LABEL version="1.1.3"
 LABEL description="User environment for AVL JupyterHub deployment"
 
 USER root
@@ -59,18 +59,13 @@ RUN mamba install --yes \
     'sentinelhub==3.3.2' \
     'voila==0.3.5' \
     'xarray==2022.3.0' \
-    'xcube==0.10.2' \
+    'xcube==0.11.2' \
     'xcube-cci==0.9.5' \
     'xcube-cds==0.9.1' \
-    'xcube_geodb==1.0.2' \
+    'xcube_geodb==1.0.3' \
     'xcube-sh==0.9.4'
 
 RUN mamba list
-
-# Install newer xcube and geoDB versions from their repositories.
-
-RUN pip3 install git+https://github.com/dcs4cop/xcube@6e37dec5ab36
-RUN pip3 install git+https://github.com/dcs4cop/xcube-geodb@03803a7e39d9
 
 COPY init.py /home/jovyan/.ipython/profile_default/startup/init.py
 
