@@ -1,3 +1,12 @@
+## Changes in 1.1.4
+
+* Add some more comments to dockerfile
+* Update mamba to 0.25.0
+* Update xcube packages: agriculture-vlab package to 0.20.0, xcube to 0.12.0,
+  xcube_geodb to 1.0.4
+* Update conda packages to latest versions
+* Add the conda packages contextily, earthpy, and jupyterlab-github
+
 ## Changes in 1.1.3
 
 * Use released versions of xcube (0.11.2) and xcube_geodb (1.0.3) rather than
@@ -10,7 +19,7 @@
 
 ## Changes in 1.1.1
 
-* Add an ipython initialization script to predefine data stores in notebooks.
+* Add an ipython initialization script to predefine data stores in notebooks
 
 ## Changes in 1.1.0
 
