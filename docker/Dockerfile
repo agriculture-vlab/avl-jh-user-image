@@ -14,18 +14,20 @@ FROM quay.io/bcdev/scipy-notebook:2021-11-20
 
 LABEL maintainer="pontus.lurcock@brockmann-consult.de"
 LABEL name="avl-user-env"
-LABEL version="1.1.4"
+LABEL version="1.1.5.dev0"
 LABEL description="User environment for AVL JupyterHub deployment"
 
 # We need to be root to install system-wide packages with apt.
 
 USER root
 
-# Upgrade some packages to fix known vulnerabilities in the base image and/or
-# install additional packages.
+# Install available apt package upgrades to fix known vulnerabilities in the
+# base image, then install additional apt packages which might be useful in
+# the user environment.
 
 ENV DEBIAN_FRONTEND noninteractive
 RUN apt-get update --yes && \
+    apt-get upgrade --yes && \
     apt-get install --yes --no-install-recommends \
     otb-bin=7.0.0+dfsg-2build3 \
     yarnpkg=1.22.4-2 \

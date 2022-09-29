@@ -1,3 +1,7 @@
+## Changes in 1.1.5 (in development)
+
+* Install all available apt package upgrades when building the image.
+
 ## Changes in 1.1.4
 
 * Add some more comments to dockerfile
