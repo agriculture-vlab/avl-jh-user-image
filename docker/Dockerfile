@@ -14,7 +14,7 @@ FROM quay.io/bcdev/scipy-notebook:2021-11-20
 
 LABEL maintainer="pontus.lurcock@brockmann-consult.de"
 LABEL name="avl-user-env"
-LABEL version="1.1.5.dev0"
+LABEL version="1.1.5"
 LABEL description="User environment for AVL JupyterHub deployment"
 
 # We need to be root to install system-wide packages with apt.
@@ -44,17 +44,26 @@ USER ${NB_UID}
 
 RUN mamba install mamba=0.25.0
 
+RUN mamba update --update-all --yes
+
 # Package versions are explicitly pinned to ensure a well-defined, reproducible
-# environment. This package list should be kept in alphabetical order to make
-# it easy to find specific packages in it.
+# environment (at least regarding the packages specified here). This package
+# list should be kept in alphabetical order to make it easy to find specific
+# packages in it. widgetsnbextension seems to get uninstalled by the mamba
+# update for some reason so we reinstall it explicitly here.
+
+# TODO: re-add voila package to install list. voila was removed on 2022-09-30
+# because (as of version 0.3.6) it's incompatible with ipywidgets 8. Future
+# voila versions (from 0.4.0) are planned to be compatible with ipywidgets 8.
 
 RUN mamba install --yes \
     'agriculture-vlab==0.2.0' \
     'contextily==1.2.0' \
-    'dask==2022.3.0' \
+    'dask==2022.6.1' \
     'dask-labextension==5.3.0' \
     'earthpy==0.9.4' \
     'graphviz==6.0.1' \
+    'ipywidgets==8.0.2' \
     'jupyterlab-geojson==3.2.0' \
     'jupyterlab-git==0.39.2' \
     'jupyterlab-github==3.0.1' \
@@ -65,9 +74,9 @@ RUN mamba install --yes \
     'rasterstats==0.17.0' \
     'rioxarray==0.12.0' \
     'sentinelhub==3.4.4' \
-    'voila==0.3.6' \
+    'widgetsnbextension==4.0.3' \
     'xarray==2022.6.0' \
-    'xcube==0.12.0' \
+    'xcube==0.12.1' \
     'xcube-cci==0.9.6' \
     'xcube-cds==0.9.1' \
     'xcube_geodb==1.0.4' \

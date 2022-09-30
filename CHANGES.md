@@ -1,6 +1,10 @@
 ## Changes in 1.1.5 (in development)
 
-* Install all available apt package upgrades when building the image.
+* Update all apt and conda-forge packages to latest available versions when
+  building the image.
+* Adjust some package versions.
+* Temporarily remove voila package due to incompatibility with recent
+  ipywidgets versions.
 
 ## Changes in 1.1.4
 
