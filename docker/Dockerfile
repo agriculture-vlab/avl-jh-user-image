@@ -61,6 +61,7 @@ RUN mamba install --yes \
     'contextily==1.2.0' \
     'dask==2022.6.1' \
     'dask-labextension==5.3.0' \
+    'dask-ml==2022.5.27' \
     'earthpy==0.9.4' \
     'graphviz==6.0.1' \
     'ipywidgets==8.0.2' \
@@ -71,6 +72,8 @@ RUN mamba install --yes \
     'plotly==5.10.0' \
     'pygraphviz==1.10' \
     'python-graphviz==0.20.1' \
+    'py-xgboost==1.6.2' \
+# the py-xgboost package auto-selects the -cpu or -gpu variant on installation
     'rasterstats==0.17.0' \
     'rioxarray==0.12.0' \
     'sentinelhub==3.4.4' \
