@@ -89,7 +89,6 @@ RUN mamba install --yes \
     fix-permissions "/home/${NB_USER}"
 
 RUN mamba update --update-all --yes
->>>>>>> Stashed changes
 
 # Print a package list in case we need it for diagnostics or debugging.
 
