@@ -83,7 +83,13 @@ RUN mamba install --yes \
     'xcube-cci==0.9.6' \
     'xcube-cds==0.9.1' \
     'xcube_geodb==1.0.4' \
-    'xcube-sh==0.9.5'
+    'xcube-sh==0.9.5' && \
+    mamba clean --all -f -y && \
+    fix-permissions "${CONDA_DIR}" && \
+    fix-permissions "/home/${NB_USER}"
+
+RUN mamba update --update-all --yes
+>>>>>>> Stashed changes
 
 # Print a package list in case we need it for diagnostics or debugging.
 
