@@ -14,7 +14,7 @@ FROM quay.io/bcdev/scipy-notebook:2021-11-20
 
 LABEL maintainer="pontus.lurcock@brockmann-consult.de"
 LABEL name="avl-user-env"
-LABEL version="1.1.5"
+LABEL version="1.2.0"
 LABEL description="User environment for AVL JupyterHub deployment"
 
 # We need to be root to install system-wide packages with apt.
@@ -30,6 +30,8 @@ RUN apt-get update --yes && \
     apt-get upgrade --yes && \
     apt-get install --yes --no-install-recommends \
     otb-bin=7.0.0+dfsg-2build3 \
+    rsync=3.1.3-8ubuntu0.4 \
+    s3cmd=2.0.2-1ubuntu1 \
     yarnpkg=1.22.4-2 \
     && apt-get clean && rm -rf /var/lib/apt/lists/*
 
@@ -42,53 +44,73 @@ USER ${NB_UID}
 # The Jupyter images have mamba preinstalled and conda-forge as the default
 # channel. First we update mamba to a more recent version.
 
-RUN mamba install mamba=0.25.0
+RUN mamba install mamba=1.1.0 --yes && \
+    mamba clean --all -f --yes
 
-RUN mamba update --update-all --yes
+# In contrast to the apt packages above, we don't run a general "mamba update"
+# here because it would make the conda environment very hard to reproduce,
+# and we don't always necessarily want the latest versions. However, the
+# "mamba install" below will also upgrade various dependencies of the explicitly
+# requested packages.
 
-# Package versions are explicitly pinned to ensure a well-defined, reproducible
-# environment (at least regarding the packages specified here). This package
-# list should be kept in alphabetical order to make it easy to find specific
-# packages in it. widgetsnbextension seems to get uninstalled by the mamba
-# update for some reason so we reinstall it explicitly here.
+# This package list below should be kept in alphabetical order to make it easy
+# to find specific packages in it. widgetsnbextension seems to get uninstalled
+# by the mamba update for some reason so we reinstall it explicitly here.
 
-# TODO: re-add voila package to install list. voila was removed on 2022-09-30
-# because (as of version 0.3.6) it's incompatible with ipywidgets 8. Future
-# voila versions (from 0.4.0) are planned to be compatible with ipywidgets 8.
+# The py-xgboost package auto-selects the -cpu or -gpu variant on installation.
 
 RUN mamba install --yes \
     'agriculture-vlab==0.2.0' \
+    'click==8.1.3' \
+    'coiled==0.2.52' \
     'contextily==1.2.0' \
-    'dask==2022.6.1' \
-    'dask-labextension==5.3.0' \
+    'dask==2022.11.1' \
+    'dask-labextension==6.0.0' \
     'dask-ml==2022.5.27' \
+    'distributed==2022.11.1' \
     'earthpy==0.9.4' \
-    'graphviz==6.0.1' \
-    'ipywidgets==8.0.2' \
-    'jupyterlab-geojson==3.2.0' \
-    'jupyterlab-git==0.39.2' \
+    'fsspec==2022.11.0' \
+    'gcsfs==2022.11.0' \
+    'graphviz==6.0.2' \
+    'ipywidgets==7.7.2' \
+    'jupyterhub==1.5.0' \
+    'jupyterlab==3.5.0' \
+    'jupyterlab-geojson==3.3.1' \
+    'jupyterlab-git==0.40.1' \
     'jupyterlab-github==3.0.1' \
+    'lz4==4.0.2' \
+    'nb_conda_kernels==2.3.1' \
     'nc-time-axis==1.4.1' \
-    'plotly==5.10.0' \
+    'nodejs==18.12.1' \
+    'numba==0.56.4' \
+    'numpy==1.23.5' \
+    'pandas==1.5.2' \
+    'pip==22.3.1' \
+    'plotly==5.11.0' \
+    'py-xgboost==1.7.1' \
+    'pyarrow==9.0.0' \
     'pygraphviz==1.10' \
+    'python==3.9.7' \
     'python-graphviz==0.20.1' \
-    'py-xgboost==1.6.2' \
-# the py-xgboost package auto-selects the -cpu or -gpu variant on installation
+    'python-snappy==0.6.1' \
     'rasterstats==0.17.0' \
-    'rioxarray==0.12.0' \
+    'rioxarray==0.13.1' \
+    's3fs==2022.11.0' \
+    'scikit-learn==1.1.3' \
+    'scipy==1.8.0' \
     'sentinelhub==3.4.4' \
-    'widgetsnbextension==4.0.3' \
-    'xarray==2022.6.0' \
+    'widgetsnbextension==3.6.1' \
+    'xarray==2022.11.0' \
     'xcube==0.12.1' \
     'xcube-cci==0.9.6' \
     'xcube-cds==0.9.1' \
+    'xcube-cmems==0.1.0' \
+    'xcube-sh==0.9.5' \
     'xcube_geodb==1.0.4' \
-    'xcube-sh==0.9.5' && \
+    'zarr==2.13.3' && \
     mamba clean --all -f -y && \
     fix-permissions "${CONDA_DIR}" && \
     fix-permissions "/home/${NB_USER}"
-
-RUN mamba update --update-all --yes
 
 # Print a package list in case we need it for diagnostics or debugging.
 
