@@ -1,4 +1,14 @@
-## Changes in 1.1.5 (in development)
+## Changes in 1.2.0
+
+* Add rsync and s3cmd packages.
+* Update mamba version.
+* Clean up mamba cache and ensure correct permissions after package
+  installation.
+* Don't do a full update of the conda environment (improves reproducibility).
+* Add or update many packages (mostly requests for Land Training Course),
+  including coiled.
+
+## Changes in 1.1.5
 
 * Update all apt and conda-forge packages to latest available versions when
   building the image.
