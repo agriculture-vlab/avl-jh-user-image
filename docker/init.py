@@ -1,5 +1,7 @@
 import os
 from xcube.core.store import new_data_store
+import distributed.deploy
+from typing import Optional
 
 max_depth = 8
 
@@ -42,3 +44,30 @@ public_store_read = new_data_store(
     root=f"agriculture-vlab-public/",
     max_depth=max_depth
 )
+
+def new_cluster(provider: str = 'coiled',
+                name: Optional[str] = None,
+                software: str = 'avl-user-1-2-0',
+                n_workers: int = 4,
+                **kwargs) -> distributed.deploy.Cluster:
+    if provider == 'coiled':
+        from coiled import Cluster
+        return Cluster(
+            # No config (see ~/.config/dask/coiled.yml)
+            n_workers=n_workers,
+            environ=None,  # Pass credentials to workers?
+            tags={
+                'cost-center': 'AVL',
+                'environment': 'dev',
+                'creator': 'auto',
+                'purpose': 'AVL dask cluster',
+            },
+            # From login
+            account='bc',
+            # From config
+            name=name,  # config 'coiled.name'
+            software=software,  # config 'coiled.software'
+            # Other
+            **kwargs
+        )
+    raise NotImplementedError(f'Unknown provider {provider!r}')
