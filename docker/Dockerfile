@@ -26,13 +26,14 @@ USER root
 # the user environment.
 
 ENV DEBIAN_FRONTEND noninteractive
-RUN apt-get update --yes && \
-    apt-get upgrade --yes && \
-    apt-get install --yes --no-install-recommends \
-    rsync=3.1.3-8ubuntu0.4 \
-    s3cmd=2.0.2-1ubuntu1 \
-    yarnpkg=1.22.4-2 \
-    && apt-get clean && rm -rf /var/lib/apt/lists/*
+RUN apt-get update --yes \
+    && apt-get upgrade --yes \
+    && apt-get install --yes --no-install-recommends \
+    rsync \
+    s3cmd \
+    yarnpkg \
+    && apt-get clean \
+    && rm -rf /var/lib/apt/lists/*
 
 # Use the jovyan user for installs in the conda environment to avoid polluting
 # it with files owned by root. The NB_UID environment variable is inherited
