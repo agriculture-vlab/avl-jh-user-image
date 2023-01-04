@@ -14,7 +14,7 @@ FROM quay.io/bcdev/scipy-notebook:python-3.9.13
 
 LABEL maintainer="pontus.lurcock@brockmann-consult.de"
 LABEL name="avl-user-env"
-LABEL version="2.0.0-beta.1"
+LABEL version="2.0.0-beta.2"
 LABEL description="User environment for AVL JupyterHub deployment"
 
 # We need to be root to install system-wide packages with apt.
@@ -90,7 +90,6 @@ RUN mamba install --yes \
     'py-xgboost==1.7.1' \
     'pyarrow==9.0.0' \
     'pygraphviz==1.10' \
-    'python==3.9.7' \
     'python-graphviz==0.20.1' \
     'python-snappy==0.6.1' \
     'rasterstats==0.17.0' \
