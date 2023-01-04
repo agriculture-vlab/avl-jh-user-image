@@ -10,11 +10,11 @@
 # package, as used in the jupyterhub/k8s-hub:1.2.0 image specified in the
 # default values of the z2jh 1.2.0 Helm chart. This should ensure compatibility
 # with the corresponding AVL hub image and with the chart itself.
-FROM quay.io/bcdev/scipy-notebook:2021-11-20
+FROM quay.io/bcdev/scipy-notebook:python-3.9.13
 
 LABEL maintainer="pontus.lurcock@brockmann-consult.de"
 LABEL name="avl-user-env"
-LABEL version="1.2.0"
+LABEL version="2.0.0-beta.1"
 LABEL description="User environment for AVL JupyterHub deployment"
 
 # We need to be root to install system-wide packages with apt.
