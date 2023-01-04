@@ -29,7 +29,6 @@ ENV DEBIAN_FRONTEND noninteractive
 RUN apt-get update --yes && \
     apt-get upgrade --yes && \
     apt-get install --yes --no-install-recommends \
-    otb-bin=7.0.0+dfsg-2build3 \
     rsync=3.1.3-8ubuntu0.4 \
     s3cmd=2.0.2-1ubuntu1 \
     yarnpkg=1.22.4-2 \
