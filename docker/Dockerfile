@@ -14,7 +14,7 @@ FROM quay.io/bcdev/scipy-notebook:python-3.9.13
 
 LABEL maintainer="pontus.lurcock@brockmann-consult.de"
 LABEL name="avl-user-env"
-LABEL version="2.0.0-beta.2"
+LABEL version="2.0.0-beta.3"
 LABEL description="User environment for AVL JupyterHub deployment"
 
 # We need to be root to install system-wide packages with apt.
@@ -73,7 +73,6 @@ RUN mamba install --yes \
     'gcsfs==2022.11.0' \
     'graphviz==6.0.2' \
     'ipywidgets==7.7.2' \
-    'jupyterhub==1.5.0' \
     'jupyterlab==3.5.0' \
     'jupyterlab-geojson==3.3.1' \
     'jupyterlab-git==0.40.1' \
