@@ -73,7 +73,7 @@ RUN mamba install --yes \
     'gcsfs==2022.11.0' \
     'graphviz==6.0.2' \
     'ipywidgets==7.7.2' \
-    'jupyterlab==3.5.0' \
+    'jupyterlab==3.5.2' \
     'jupyterlab-geojson==3.3.1' \
     'jupyterlab-git==0.40.1' \
     'jupyterlab-github==3.0.1' \
