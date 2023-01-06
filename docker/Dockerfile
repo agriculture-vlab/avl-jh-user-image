@@ -12,6 +12,15 @@
 # with the corresponding AVL hub image and with the chart itself.
 FROM quay.io/bcdev/scipy-notebook:python-3.9.13
 
+# TODO: resolve incompatibility problems
+#
+# Using scipy-notebook:python-3.9.13 as base results in incompatibility
+# with Coiled. Coiled *does* work with scipy-notebook:python-3.9.12 (which,
+# confusingly, also provides Python version 3.9.13, but uses Ubuntu 20.04 as
+# base, whereas scipy-notebook:python-3.9.13 uses Ubuntu 22.04). However, the
+# AVL user image won't build on top of scipy-notebook:python-3.9.13: mamba
+# install of agriculture-vlab package produces an OpenSSL error.
+
 LABEL maintainer="pontus.lurcock@brockmann-consult.de"
 LABEL name="avl-user-env"
 LABEL version="2.0.0-beta.3"
