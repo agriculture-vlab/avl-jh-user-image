@@ -7,8 +7,7 @@
 # Copyright (c) Jupyter Development Team.
 # Distributed under the terms of the Modified BSD License.
 
-# Ubuntu 22.04 (jammy)
-# https://hub.docker.com/_/ubuntu/tags?page=1&name=jammy
+# https://hub.docker.com/_/ubuntu/
 ARG ROOT_CONTAINER=ubuntu:22.04
 
 FROM $ROOT_CONTAINER
@@ -83,7 +82,7 @@ RUN echo "auth requisite pam_deny.so" >> /etc/pam.d/su && \
 USER ${NB_UID}
 
 # Pin python version here, or set it to "default"
-ARG PYTHON_VERSION=3.10
+ARG PYTHON_VERSION=3.9
 
 # Setup work directory for backward-compatibility
 RUN mkdir "/home/${NB_USER}/work" && \
@@ -180,9 +179,9 @@ USER ${NB_UID}
 # files across image layers when the permissions change
 WORKDIR /tmp
 RUN mamba install --quiet --yes \
-    'notebook' \
-    'jupyterhub' \
-    'jupyterlab' && \
+    'notebook==6.5.2' \
+    'jupyterhub==3.0.0' \
+    'jupyterlab==3.5.0' && \
     jupyter notebook --generate-config && \
     mamba clean --all -f -y && \
     npm cache clean --force && \
@@ -293,44 +292,85 @@ RUN apt-get update --yes && \
     cm-super \
     dvipng \
     # for matplotlib anim
-    ffmpeg && \
+    ffmpeg \
+    rsync \
+    s3cmd \
+    yarnpkg && \
     apt-get clean && rm -rf /var/lib/apt/lists/*
 
 USER ${NB_UID}
 
 # Install Python 3 packages
 RUN mamba install --quiet --yes \
-    'altair' \
-    'beautifulsoup4' \
-    'bokeh' \
-    'bottleneck' \
-    'cloudpickle' \
-    'conda-forge::blas=*=openblas' \
-    'cython' \
-    'dask' \
-    'dill' \
-    'h5py' \
-    'ipympl'\
-    'ipywidgets' \
+    'agriculture-vlab==0.2.1' \
+    'altair==4.2.0' \
+    'beautifulsoup4==4.11.1' \
+    'bokeh==2.4.3' \
+    'bottleneck==1.3.5' \
+    'click==8.1.3' \
+    'cloudpickle==2.2.0' \
+    'coiled==0.2.59' \
+    'conda-forge::blas=2.116=openblas' \
+    'contextily==1.2.0' \
+    'cython==0.29.33' \
+    'dask-labextension==6.0.0' \
+    'dask-ml==2022.5.27' \
+    'dask==2022.12.1' \
+    'dill==0.3.6' \
+    'distributed==2022.12.1' \
+    'earthpy==0.9.4' \
+    'fsspec==2022.11.0' \
+    'gcsfs==2022.11.0' \
+    'graphviz==6.0.2' \
+    'h5py==3.7.0' \
+    'ipympl==0.9.2' \
+    'ipywidgets==7.7.2' \
     # Temporary fix for: https://github.com/jupyter/docker-stacks/issues/1851
-    'jupyter_server>=2.0.0' \
-    'matplotlib-base' \
-    'numba' \
-    'numexpr' \
-    'openpyxl' \
-    'pandas' \
-    'patsy' \
-    'protobuf' \
-    'pytables' \
-    'scikit-image' \
-    'scikit-learn' \
-    'scipy' \
-    'seaborn' \
-    'sqlalchemy' \
-    'statsmodels' \
-    'sympy' \
-    'widgetsnbextension'\
-    'xlrd' && \
+    'jupyter_server==2.0.6' \
+    'jupyterlab-geojson==3.3.1' \
+    'jupyterlab-git==0.41.0' \
+    'jupyterlab-github==3.0.1' \
+    'lz4==4.2.0' \
+    'matplotlib-base==3.6.2' \
+    'nb_conda_kernels==2.3.1' \
+    'nc-time-axis==1.4.1' \
+    'nodejs==18.12.1' \
+    'numba==0.56.4' \
+    'numexpr==2.8.3' \
+    'numpy==1.23.5' \
+    'openpyxl==3.0.10' \
+    'pandas==1.5.2' \
+    'patsy==0.5.3' \
+    'pip==22.3.1' \
+    'plotly==5.11.0' \
+    'protobuf==4.21.12' \
+    'py-xgboost==1.7.1' \
+    'pyarrow==10.0.1' \
+    'pygraphviz==1.10' \
+    'pytables==3.7.0' \
+    'python-graphviz==0.20.1' \
+    'python-snappy==0.6.1' \
+    'rasterstats==0.17.0' \
+    'rioxarray==0.13.3' \
+    's3fs==2022.11.0' \
+    'scikit-image==0.19.3' \
+    'scikit-learn==1.2.0' \
+    'scipy==1.10.0' \
+    'seaborn==0.12.2' \
+    'sentinelhub==3.4.4' \
+    'sqlalchemy==1.4.46' \
+    'statsmodels==0.13.5' \
+    'sympy==1.11.1' \
+    'widgetsnbextension==3.6.1' \
+    'xarray==2022.12.0' \
+    'xcube-cci==0.9.7' \
+    'xcube-cds==0.9.1' \
+    'xcube-cmems==0.1.0' \
+    'xcube-sh==0.10.0' \
+    'xcube==0.12.1' \
+    'xcube_geodb==1.0.4' \
+    'xlrd==2.0.1' \
+    'zarr==2.13.3' && \
     mamba clean --all -f -y && \
     fix-permissions "${CONDA_DIR}" && \
     fix-permissions "/home/${NB_USER}"
@@ -351,4 +391,40 @@ RUN MPLBACKEND=Agg python -c "import matplotlib.pyplot" && \
 
 USER ${NB_UID}
 
+WORKDIR "${HOME}"
+
+############### AVL Dockerfile
+
+USER root
+
+# Use the jovyan user for installs in the conda environment to avoid polluting
+# it with files owned by root. The NB_UID environment variable is inherited
+# from the base image which ultimately inherits it from base-notebook.
+
+USER ${NB_UID}
+
+# In contrast to the apt packages above, we don't run a general "mamba update"
+# here because it would make the conda environment very hard to reproduce,
+# and we don't always necessarily want the latest versions. However, the
+# "mamba install" below will also upgrade various dependencies of the explicitly
+# requested packages.
+
+# This package list below should be kept in alphabetical order to make it easy
+# to find specific packages in it. widgetsnbextension seems to get uninstalled
+# by the mamba update for some reason so we reinstall it explicitly here.
+
+# The py-xgboost package auto-selects the -cpu or -gpu variant on installation.
+
+# Print a package list in case we need it for diagnostics or debugging.
+
+RUN mamba list
+
+# Copy the user init file to a location where it will be automatically run
+# whenever a notebook is opened.
+
+COPY init.py /home/jovyan/.ipython/profile_default/startup/init.py
+
+# Set the default user and home directory.
+
+USER ${NB_UID}
 WORKDIR "${HOME}"
