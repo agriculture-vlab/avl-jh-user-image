@@ -3,11 +3,18 @@
 # AVL user environment docker image configuration
 
 This repository contains a Dockerfile defining an image that provides a custom
-user environment for use in JupyterHub. The Dockerfile uses an image from
-[Jupyter’s Docker Stacks collection](https://github.com/jupyter/docker-stacks)
-as its base and adds some packages relevant to the AVL (xcube, etc.). It
-also adds an initialization script under `/.ipython` which predefines some
-AVL data stores for use in notebooks. See
+user environment for use in JupyterHub. The Dockerfile uses an Ubuntu image
+as its base. Its content is based on a concatenation of Dockerfiles from
+[Jupyter’s Docker Stacks collection](https://github.com/jupyter/docker-stacks),
+specifically the stack `docker-stacks-foundation` – `base-notebook` –
+`minimal-notebook` – `scipy-notebook`. Combining Dockerfile contents directly
+like this is a less obvious approach than simply taking the `scipy-notebook`
+image as a base, but it gives us direct control over installed software
+versions and allows more customization and consolidation of build steps.
+On top of the Docker Stacks content, the AVL user environment Dockerfile adds
+some packages relevant to the AVL (xcube, etc.). It also adds an initialization
+script under `/.ipython` which implements some AVL-specific configuration in
+Python runtimes in notebooks. See
 <https://zero-to-jupyterhub.readthedocs.io/en/latest/jupyterhub/customizing/user-environment.html>
 for more details on custom user environments in JupyterHub.
 
