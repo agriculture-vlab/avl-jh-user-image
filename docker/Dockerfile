@@ -4,7 +4,7 @@
 
 # This file originated as a concatenation of the Dockerfiles from
 # docker-stacks-foundation, base-notebook, minimal-notebook, and scipy-notebook
-# in https://github.com/jupyter/docker-stacks as of revision a905ff6f6d7b.
+# in https://github.com/jupyter/docker-stacks at revision a905ff6f6d7b.
 
 # =========== docker-stacks-foundation
 
@@ -15,7 +15,7 @@ FROM $ROOT_CONTAINER
 
 LABEL maintainer="Agriculture Virtual Laboratory <support@agriculturevlab.eu>"
 LABEL name="avl-user-env"
-LABEL version="3.0.0-beta.1"
+LABEL version="3.0.0"
 LABEL description="User environment for AVL JupyterHub deployment"
 
 ARG NB_USER="jovyan"

@@ -1,3 +1,13 @@
+## Changes in 3.0.0
+
+* Rebase directly on an Ubuntu 20.04 image rather than the Docker Stacks
+  scipy-notebook image.
+* Incorporate all steps from the previously used Docker Stacks images into
+  the AVL User Image Dockerfile itself.
+* Update software versions.
+* Note: there were no version 2 releases, except for beta versions; 3.0.0
+  is the direct successor of 1.2.0.
+
 ## Changes in 1.2.0
 
 * Add rsync and s3cmd packages.
