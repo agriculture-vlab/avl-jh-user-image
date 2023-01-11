@@ -1,18 +1,23 @@
-# This file is a concatenation of the Dockerfiles from
+# Copyright Agriculture Virtual Laboratory Development Team and
+# Jupyter Development Team.
+# Distributed under the terms of the Modified BSD License.
+
+# This file originated as a concatenation of the Dockerfiles from
 # docker-stacks-foundation, base-notebook, minimal-notebook, and scipy-notebook
 # in https://github.com/jupyter/docker-stacks as of revision a905ff6f6d7b.
 
 # =========== docker-stacks-foundation
 
-# Copyright (c) Jupyter Development Team.
-# Distributed under the terms of the Modified BSD License.
-
 # https://hub.docker.com/_/ubuntu/
-ARG ROOT_CONTAINER=ubuntu:22.04
+ARG ROOT_CONTAINER=ubuntu:20.04
 
 FROM $ROOT_CONTAINER
 
-LABEL maintainer="Jupyter Project <jupyter@googlegroups.com>"
+LABEL maintainer="Agriculture Virtual Laboratory <support@agriculturevlab.eu>"
+LABEL name="avl-user-env"
+LABEL version="3.0.0-beta.1"
+LABEL description="User environment for AVL JupyterHub deployment"
+
 ARG NB_USER="jovyan"
 ARG NB_UID="1000"
 ARG NB_GID="100"
@@ -141,13 +146,7 @@ WORKDIR "${HOME}"
 
 # =============== base-notebook
 
-# Copyright (c) Jupyter Development Team.
-# Distributed under the terms of the Modified BSD License.
 ARG OWNER=jupyter
-# ARG BASE_CONTAINER=$OWNER/docker-stacks-foundation
-# FROM $BASE_CONTAINER
-
-LABEL maintainer="Jupyter Project <jupyter@googlegroups.com>"
 
 # Fix: https://github.com/hadolint/hadolint/wiki/DL4006
 # Fix: https://github.com/koalaman/shellcheck/wiki/SC3014
@@ -222,13 +221,7 @@ WORKDIR "${HOME}"
 
 # ================ minimal-notebook
 
-# Copyright (c) Jupyter Development Team.
-# Distributed under the terms of the Modified BSD License.
 ARG OWNER=jupyter
-# ARG BASE_CONTAINER=$OWNER/base-notebook
-# FROM $BASE_CONTAINER
-
-LABEL maintainer="Jupyter Project <jupyter@googlegroups.com>"
 
 # Fix: https://github.com/hadolint/hadolint/wiki/DL4006
 # Fix: https://github.com/koalaman/shellcheck/wiki/SC3014
@@ -268,15 +261,9 @@ USER ${NB_UID}
 # Add R mimetype option to specify how the plot returns from R to the browser
 COPY --chown=${NB_UID}:${NB_GID} Rprofile.site /opt/conda/lib/R/etc/
 
-# ================== scipy-notebook
+# ================== scipy-notebook and AVL additions
 
-# Copyright (c) Jupyter Development Team.
-# Distributed under the terms of the Modified BSD License.
 ARG OWNER=jupyter
-# ARG BASE_CONTAINER=$OWNER/minimal-notebook
-# FROM $BASE_CONTAINER
-
-LABEL maintainer="Jupyter Project <jupyter@googlegroups.com>"
 
 # Fix: https://github.com/hadolint/hadolint/wiki/DL4006
 # Fix: https://github.com/koalaman/shellcheck/wiki/SC3014
@@ -300,7 +287,11 @@ RUN apt-get update --yes && \
 
 USER ${NB_UID}
 
+# Use the jovyan user for installs in the conda environment to avoid polluting
+# it with files owned by root.
+
 # Install Python 3 packages
+# The py-xgboost package auto-selects the -cpu or -gpu variant on installation.
 RUN mamba install --quiet --yes \
     'agriculture-vlab==0.2.1' \
     'altair==4.2.0' \
@@ -390,41 +381,14 @@ RUN MPLBACKEND=Agg python -c "import matplotlib.pyplot" && \
     fix-permissions "/home/${NB_USER}"
 
 USER ${NB_UID}
-
 WORKDIR "${HOME}"
-
-############### AVL Dockerfile
-
-USER root
-
-# Use the jovyan user for installs in the conda environment to avoid polluting
-# it with files owned by root. The NB_UID environment variable is inherited
-# from the base image which ultimately inherits it from base-notebook.
-
-USER ${NB_UID}
-
-# In contrast to the apt packages above, we don't run a general "mamba update"
-# here because it would make the conda environment very hard to reproduce,
-# and we don't always necessarily want the latest versions. However, the
-# "mamba install" below will also upgrade various dependencies of the explicitly
-# requested packages.
-
-# This package list below should be kept in alphabetical order to make it easy
-# to find specific packages in it. widgetsnbextension seems to get uninstalled
-# by the mamba update for some reason so we reinstall it explicitly here.
-
-# The py-xgboost package auto-selects the -cpu or -gpu variant on installation.
-
-# Print a package list in case we need it for diagnostics or debugging.
-
-RUN mamba list
 
 # Copy the user init file to a location where it will be automatically run
 # whenever a notebook is opened.
 
 COPY init.py /home/jovyan/.ipython/profile_default/startup/init.py
 
-# Set the default user and home directory.
+# Print a package list in case we need it for diagnostics or debugging.
 
-USER ${NB_UID}
-WORKDIR "${HOME}"
+RUN mamba list
+
