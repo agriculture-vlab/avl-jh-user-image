@@ -383,8 +383,13 @@ RUN MPLBACKEND=Agg python -c "import matplotlib.pyplot" && \
 USER ${NB_UID}
 WORKDIR "${HOME}"
 
-# Copy the user init file to a location where it will be automatically run
-# whenever a notebook is opened.
+# Copy the user init file into the home directory. The location corresponds
+# to the default value of get_ipython().profile_dir.startup_dir in a
+# z2jh deployment, but for such a deployment a persistent volume will in any
+# case be mounted at the home directory so the original Dockerfile contents
+# there will not be visible. Because of this, and because the startup_dir
+# value may vary, deployments should make their own arrangements to ensure
+# that the notebook runtime finds this init file or a copy of it.
 
 COPY init.py /home/jovyan/.ipython/profile_default/startup/init.py
 
