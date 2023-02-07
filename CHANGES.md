@@ -1,3 +1,8 @@
+## Changes in 3.0.1 (under development)
+
+* Add nbgitpuller package.
+* User lower case for value of cost-center tag on dask cluster.
+
 ## Changes in 3.0.0
 
 * Rebase directly on an Ubuntu 20.04 image rather than the Docker Stacks

@@ -15,7 +15,7 @@ FROM $ROOT_CONTAINER
 
 LABEL maintainer="Agriculture Virtual Laboratory <support@agriculturevlab.eu>"
 LABEL name="avl-user-env"
-LABEL version="3.0.0"
+LABEL version="3.0.1-alpha.1"
 LABEL description="User environment for AVL JupyterHub deployment"
 
 ARG NB_USER="jovyan"
@@ -324,6 +324,7 @@ RUN mamba install --quiet --yes \
     'lz4==4.2.0' \
     'matplotlib-base==3.6.2' \
     'nb_conda_kernels==2.3.1' \
+    'nbgitpuller==1.1.1' \
     'nc-time-axis==1.4.1' \
     'nodejs==18.12.1' \
     'numba==0.56.4' \

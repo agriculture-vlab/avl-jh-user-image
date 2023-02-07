@@ -66,7 +66,7 @@ def new_cluster(
             n_workers=n_workers,
             environ=None,  # Pass credentials to workers?
             tags={
-                'cost-center': 'AVL',
+                'cost-center': 'avl',
                 'environment': 'dev',
                 'creator': 'auto',
                 'purpose': 'AVL dask cluster',
