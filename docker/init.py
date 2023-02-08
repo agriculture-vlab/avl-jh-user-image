@@ -60,23 +60,23 @@ def new_cluster(
                     name=software,
                     container=current_image
                 )
-        
-        return coiled.Cluster(
-            # No config (see ~/.config/dask/coiled.yml)
+
+        coiled_params = dict(
             n_workers=n_workers,
-            environ=None,  # Pass credentials to workers?
+            environ=None,
             tags={
                 'cost-center': 'avl',
                 'environment': 'dev',
                 'creator': 'auto',
                 'purpose': 'AVL dask cluster',
             },
-            # From login
             account=account,
-            # From config
-            name=name,  # config 'coiled.name'
-            software=software,  # config 'coiled.software'
-            # Other
-            **kwargs,
+            name=name,
+            software=software,
+            use_best_zone=True,
+            compute_purchase_option='spot_with_fallback'
         )
+        coiled_params.update(kwargs)
+
+        return coiled.Cluster(**coiled_params)
     raise NotImplementedError(f'Unknown provider {provider!r}')
