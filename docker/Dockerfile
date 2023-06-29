@@ -15,7 +15,7 @@ FROM $ROOT_CONTAINER
 
 LABEL maintainer="Agriculture Virtual Laboratory <support@agriculturevlab.eu>"
 LABEL name="avl-user-env"
-LABEL version="3.0.1-alpha.1"
+LABEL version="3.1.0"
 LABEL description="User environment for AVL JupyterHub deployment"
 
 ARG NB_USER="jovyan"
@@ -87,7 +87,7 @@ RUN echo "auth requisite pam_deny.so" >> /etc/pam.d/su && \
 USER ${NB_UID}
 
 # Pin python version here, or set it to "default"
-ARG PYTHON_VERSION=3.9
+ARG PYTHON_VERSION=3.11
 
 # Setup work directory for backward-compatibility
 RUN mkdir "/home/${NB_USER}/work" && \
@@ -178,9 +178,9 @@ USER ${NB_UID}
 # files across image layers when the permissions change
 WORKDIR /tmp
 RUN mamba install --quiet --yes \
-    'notebook==6.5.2' \
-    'jupyterhub==3.0.0' \
-    'jupyterlab==3.5.0' && \
+    'notebook==6.5.4' \
+    'jupyterhub==4.0.1' \
+    'jupyterlab==3.6.5' && \
     jupyter notebook --generate-config && \
     mamba clean --all -f -y && \
     npm cache clean --force && \
@@ -293,76 +293,78 @@ USER ${NB_UID}
 # Install Python 3 packages
 # The py-xgboost package auto-selects the -cpu or -gpu variant on installation.
 RUN mamba install --quiet --yes \
-    'agriculture-vlab==0.2.1' \
-    'altair==4.2.0' \
-    'beautifulsoup4==4.11.1' \
-    'bokeh==2.4.3' \
-    'bottleneck==1.3.5' \
+    'agriculture-vlab==0.3.0' \
+    'altair==5.0.1' \
+    'beautifulsoup4==4.12.2' \
+    'bokeh==3.2.0' \
+    'bottleneck==1.3.7' \
     'click==8.1.3' \
-    'cloudpickle==2.2.0' \
-    'coiled==0.2.59' \
-    'conda-forge::blas=2.116=openblas' \
-    'contextily==1.2.0' \
-    'cython==0.29.33' \
-    'dask-labextension==6.0.0' \
-    'dask-ml==2022.5.27' \
-    'dask==2022.12.1' \
+    'cloudpickle==2.2.1' \
+    'coiled==0.7.11' \
+    'conda-forge::blas=2.117=openblas' \
+    'contextily==1.3.0' \
+    'cython==0.29.35' \
+    'dask-labextension==6.1.0' \
+    'dask-ml==2023.3.24' \
+    'dask==2023.6.1' \
     'dill==0.3.6' \
-    'distributed==2022.12.1' \
+    'distributed==2023.6.1' \
     'earthpy==0.9.4' \
-    'fsspec==2022.11.0' \
-    'gcsfs==2022.11.0' \
-    'graphviz==6.0.2' \
-    'h5py==3.7.0' \
-    'ipympl==0.9.2' \
-    'ipywidgets==7.7.2' \
+    'flox==0.7.2' \
+    'fsspec==2023.6.0' \
+    'gcsfs==2023.6.0' \
+    'graphviz==8.0.5' \
+    'h5py==3.9.0' \
+    'ipympl==0.9.3' \
+    'ipywidgets==8.0.6' \
     # Temporary fix for: https://github.com/jupyter/docker-stacks/issues/1851
-    'jupyter_server==2.0.6' \
-    'jupyterlab-geojson==3.3.1' \
+    'jupyter_server==2.7.0' \
+    'jupyterlab-geojson==3.4.0' \
     'jupyterlab-git==0.41.0' \
     'jupyterlab-github==3.0.1' \
-    'lz4==4.2.0' \
-    'matplotlib-base==3.6.2' \
+    'lz4==4.3.2' \
+    'matplotlib-base==3.7.1' \
+    'mkdocs==1.4.3' \
     'nb_conda_kernels==2.3.1' \
     'nbgitpuller==1.1.1' \
     'nc-time-axis==1.4.1' \
-    'nodejs==18.12.1' \
-    'numba==0.56.4' \
-    'numexpr==2.8.3' \
-    'numpy==1.23.5' \
-    'openpyxl==3.0.10' \
-    'pandas==1.5.2' \
+    'nodejs==18.16.1' \
+    'numba==0.57.1' \
+    'numexpr==2.8.4' \
+    'numpy==1.24.4' \
+    'openpyxl==3.1.2' \
+    'pandas==1.5.3' \
     'patsy==0.5.3' \
-    'pip==22.3.1' \
-    'plotly==5.11.0' \
-    'protobuf==4.21.12' \
-    'py-xgboost==1.7.1' \
-    'pyarrow==10.0.1' \
-    'pygraphviz==1.10' \
-    'pytables==3.7.0' \
+    'pip==23.1.2' \
+    'plotly==5.15.0' \
+    'protobuf==4.23.2' \
+    'py-xgboost==1.7.4' \
+    'pyarrow==12.0.0' \
+    'pygraphviz==1.11' \
+    'pytables==3.8.0' \
     'python-graphviz==0.20.1' \
     'python-snappy==0.6.1' \
-    'rasterstats==0.17.0' \
-    'rioxarray==0.13.3' \
-    's3fs==2022.11.0' \
-    'scikit-image==0.19.3' \
-    'scikit-learn==1.2.0' \
-    'scipy==1.10.0' \
+    'rasterstats==0.19.0' \
+    'rioxarray==0.14.1' \
+    's3fs==2023.6.0' \
+    'scikit-image==0.20.0' \
+    'scikit-learn==1.2.2' \
+    'scipy==1.11.1' \
     'seaborn==0.12.2' \
-    'sentinelhub==3.4.4' \
-    'sqlalchemy==1.4.46' \
-    'statsmodels==0.13.5' \
-    'sympy==1.11.1' \
-    'widgetsnbextension==3.6.1' \
-    'xarray==2022.12.0' \
-    'xcube-cci==0.9.7' \
-    'xcube-cds==0.9.1' \
-    'xcube-cmems==0.1.0' \
-    'xcube-sh==0.10.0' \
-    'xcube==0.12.1' \
-    'xcube_geodb==1.0.4' \
+    'sentinelhub==3.9.1' \
+    'sqlalchemy==2.0.17' \
+    'statsmodels==0.14.0' \
+    'sympy==1.12' \
+    'widgetsnbextension==4.0.7' \
+    'xarray==2023.6.0' \
+    'xcube-cci==0.9.9' \
+    'xcube-cds==0.9.2' \
+    'xcube-cmems==0.1.1' \
+    'xcube-sh==0.10.3' \
+    'xcube==1.0.5' \
+    'xcube_geodb==1.0.6' \
     'xlrd==2.0.1' \
-    'zarr==2.13.3' && \
+    'zarr==2.15.0' && \
     mamba clean --all -f -y && \
     fix-permissions "${CONDA_DIR}" && \
     fix-permissions "/home/${NB_USER}"
