@@ -313,8 +313,8 @@ RUN mamba install --quiet --yes \
     'flox==0.7.2' \
     'fsspec==2023.6.0' \
     'gcsfs==2023.6.0' \
-    'graphviz==8.0.5' \
-    'h5py==3.9.0' \
+    'graphviz==7.1.0' \
+    'h5py==3.8.0' \
     'ipympl==0.9.3' \
     'ipywidgets==8.0.6' \
     # Temporary fix for: https://github.com/jupyter/docker-stacks/issues/1851
@@ -328,7 +328,7 @@ RUN mamba install --quiet --yes \
     'nb_conda_kernels==2.3.1' \
     'nbgitpuller==1.1.1' \
     'nc-time-axis==1.4.1' \
-    'nodejs==18.16.1' \
+    'nodejs==18.15.0' \
     'numba==0.57.1' \
     'numexpr==2.8.4' \
     'numpy==1.24.4' \
@@ -340,15 +340,15 @@ RUN mamba install --quiet --yes \
     'protobuf==4.23.2' \
     'py-xgboost==1.7.4' \
     'pyarrow==12.0.0' \
-    'pygraphviz==1.11' \
-    'pytables==3.8.0' \
+    'pygraphviz==1.10' \
+    'pytables==3.7.0' \
     'python-graphviz==0.20.1' \
     'python-snappy==0.6.1' \
     'rasterstats==0.19.0' \
     'rioxarray==0.14.1' \
     's3fs==2023.6.0' \
     'scikit-image==0.20.0' \
-    'scikit-learn==1.2.2' \
+    'scikit-learn==1.3.0' \
     'scipy==1.11.1' \
     'seaborn==0.12.2' \
     'sentinelhub==3.9.1' \
@@ -359,9 +359,9 @@ RUN mamba install --quiet --yes \
     'xarray==2023.6.0' \
     'xcube-cci==0.9.9' \
     'xcube-cds==0.9.2' \
-    'xcube-cmems==0.1.1' \
+    'xcube-cmems==0.1.2' \
     'xcube-sh==0.10.3' \
-    'xcube==1.0.5' \
+    'xcube==1.1.2' \
     'xcube_geodb==1.0.6' \
     'xlrd==2.0.1' \
     'zarr==2.15.0' && \
