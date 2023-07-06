@@ -1,7 +1,12 @@
-## Changes in 3.0.1 (under development)
+## Changes in 3.1.0
 
-* Add nbgitpuller package.
+* Update Coiled package to 0.7.11 for compatibility with current server-side
+  API.
+* Add nbgitpuller, flox, and mkdocs packages.
+* Update versions of many conda-forge packages.
 * User lower case for value of cost-center tag on dask cluster.
+* Make the new_cluster function use spot instances by default.
+* Make the cost-center tag for Coiled clusters lower case.
 
 ## Changes in 3.0.0
 
