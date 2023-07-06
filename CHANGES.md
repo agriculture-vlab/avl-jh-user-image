@@ -1,5 +1,7 @@
 ## Changes in 3.1.0
 
+* Update Coiled package to 0.7.11 for compatibility with current server-side
+  API.
 * Add nbgitpuller, flox, and mkdocs packages.
 * Update versions of many conda-forge packages.
 * User lower case for value of cost-center tag on dask cluster.
