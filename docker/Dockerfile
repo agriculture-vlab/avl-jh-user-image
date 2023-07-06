@@ -15,7 +15,7 @@ FROM $ROOT_CONTAINER
 
 LABEL maintainer="Agriculture Virtual Laboratory <support@agriculturevlab.eu>"
 LABEL name="avl-user-env"
-LABEL version="3.1.0"
+LABEL version="3.1.1"
 LABEL description="User environment for AVL JupyterHub deployment"
 
 ARG NB_USER="jovyan"
@@ -179,7 +179,9 @@ USER ${NB_UID}
 WORKDIR /tmp
 RUN mamba install --quiet --yes \
     'notebook==6.5.4' \
-    'jupyterhub==4.0.1' \
+    # Make sure that the minor version of the jupyterhub package always \
+    # matches the one in the hub image!
+    'jupyterhub==3.0.0' \
     'jupyterlab==3.6.5' && \
     jupyter notebook --generate-config && \
     mamba clean --all -f -y && \
