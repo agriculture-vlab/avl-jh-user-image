@@ -1,3 +1,8 @@
+## Changes in 3.1.1
+
+* Revert jupyterhub version from 4.0.1 to 3.0.0, to match version in AVL
+  Jupyter hub container image.
+
 ## Changes in 3.1.0
 
 * Update Coiled package to 0.7.11 for compatibility with current server-side
