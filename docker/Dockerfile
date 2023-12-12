@@ -15,7 +15,7 @@ FROM $ROOT_CONTAINER
 
 LABEL maintainer="Agriculture Virtual Laboratory <support@agriculturevlab.eu>"
 LABEL name="avl-user-env"
-LABEL version="3.1.1"
+LABEL version="smos1"
 LABEL description="User environment for AVL JupyterHub deployment"
 
 ARG NB_USER="jovyan"
@@ -296,27 +296,7 @@ USER ${NB_UID}
 # The py-xgboost package auto-selects the -cpu or -gpu variant on installation.
 RUN mamba install --quiet --yes \
     'agriculture-vlab==0.3.0' \
-    'altair==5.0.1' \
-    'beautifulsoup4==4.12.2' \
-    'bokeh==3.2.0' \
-    'bottleneck==1.3.7' \
-    'click==8.1.3' \
-    'cloudpickle==2.2.1' \
     'coiled==0.7.11' \
-    'conda-forge::blas=2.117=openblas' \
-    'contextily==1.3.0' \
-    'cython==0.29.35' \
-    'dask-labextension==6.1.0' \
-    'dask-ml==2023.3.24' \
-    'dask==2023.6.1' \
-    'dill==0.3.6' \
-    'distributed==2023.6.1' \
-    'earthpy==0.9.4' \
-    'flox==0.7.2' \
-    'fsspec==2023.6.0' \
-    'gcsfs==2023.6.0' \
-    'graphviz==7.1.0' \
-    'h5py==3.8.0' \
     'ipympl==0.9.3' \
     'ipywidgets==8.0.6' \
     # Temporary fix for: https://github.com/jupyter/docker-stacks/issues/1851
@@ -324,49 +304,15 @@ RUN mamba install --quiet --yes \
     'jupyterlab-geojson==3.4.0' \
     'jupyterlab-git==0.41.0' \
     'jupyterlab-github==3.0.1' \
-    'lz4==4.3.2' \
-    'matplotlib-base==3.7.1' \
-    'mkdocs==1.4.3' \
-    'nb_conda_kernels==2.3.1' \
-    'nbgitpuller==1.1.1' \
-    'nc-time-axis==1.4.1' \
-    'nodejs==18.15.0' \
-    'numba==0.57.1' \
-    'numexpr==2.8.4' \
-    'numpy==1.24.4' \
-    'openpyxl==3.1.2' \
-    'pandas==1.5.3' \
-    'patsy==0.5.3' \
-    'pip==23.1.2' \
-    'plotly==5.15.0' \
-    'protobuf==4.23.2' \
-    'py-xgboost==1.7.4' \
-    'pyarrow==12.0.0' \
-    'pygraphviz==1.10' \
-    'pytables==3.7.0' \
-    'python-graphviz==0.20.1' \
-    'python-snappy==0.6.1' \
-    'rasterstats==0.19.0' \
-    'rioxarray==0.14.1' \
-    's3fs==2023.6.0' \
-    'scikit-image==0.20.0' \
-    'scikit-learn==1.3.0' \
-    'scipy==1.11.1' \
-    'seaborn==0.12.2' \
-    'sentinelhub==3.9.1' \
-    'sqlalchemy==2.0.17' \
-    'statsmodels==0.14.0' \
-    'sympy==1.12' \
-    'widgetsnbextension==4.0.7' \
-    'xarray==2023.6.0' \
-    'xcube-cci==0.9.9' \
-    'xcube-cds==0.9.2' \
-    'xcube-cmems==0.1.2' \
-    'xcube-sh==0.10.3' \
-    'xcube==1.1.2' \
-    'xcube_geodb==1.0.6' \
-    'xlrd==2.0.1' \
-    'zarr==2.15.0' && \
+    'click' \
+    'boto3' \
+    'h5netcdf' \
+    'h5py' \
+    'kerchunk ' \
+    'xcube' \
+    'pytest' \
+    'hdf5==1.14.2' \
+    'nb_conda_kernels==2.3.1' && \
     mamba clean --all -f -y && \
     fix-permissions "${CONDA_DIR}" && \
     fix-permissions "/home/${NB_USER}"
