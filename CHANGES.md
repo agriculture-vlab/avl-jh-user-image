@@ -1,3 +1,16 @@
+## Changes in 4.0.0
+
+* Rewrite dockerfile based on revision 1c44e6d6e8f7 (2024-05-30) of the
+  docker-stacks repository.
+* Update jupyterhub package to v4.1.5 (corresponding to hub and chart
+  version 3.3.7).
+* Update all packages to latest versions.
+* Update maintainer email address.
+* Update notebook package from 6.5.2 to 7.2.1.
+* Make an additional copy of the user ipython init file to /tmp, from where
+  it can be copied at runtime even when another filesystem is mounted over
+  /home.
+
 ## Changes in 3.1.1
 
 * Revert jupyterhub version from 4.0.1 to 3.0.0, to match version in AVL
