@@ -307,6 +307,8 @@ USER ${NB_UID}
 # Use the jovyan user for installs in the conda environment to avoid polluting
 # it with files owned by root.
 
+#
+
 # Install Python 3 packages
 # The py-xgboost package auto-selects the -cpu or -gpu variant on installation.
 RUN mamba install --quiet --yes \
@@ -336,7 +338,9 @@ RUN mamba install --quiet --yes \
     'ipywidgets==8.1.3' \
     'jupyterlab-geojson==3.4.0' \
     'jupyterlab-git==0.50.0' \
-    'jupyterlab-github==4.0.0' \
+    # 'jupyterlab-github==4.0.0' \
+    # temporarily omitted to avoid triggering
+    # https://github.com/jupyterlab/jupyterlab/issues/15629
     'lz4==4.3.3' \
     'matplotlib-base==3.8.4' \
     'mkdocs==1.6.0' \
@@ -410,6 +414,11 @@ WORKDIR "${HOME}"
 # that the notebook runtime finds this init file or a copy of it.
 
 COPY init.py /home/jovyan/.ipython/profile_default/startup/init.py
+
+# Make an additional copy to /tmp, from where it will be readable even
+# when something is mounted over /home.
+
+COPY init.py /tmp/ipython-init.py
 
 # Print a package list in case we need it for diagnostics or debugging.
 
