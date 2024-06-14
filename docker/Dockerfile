@@ -8,7 +8,7 @@
 # (2024-05-30).
 
 # The contents of docker-stacks-foundation and base-notebook are included
-# almost verbatim, but package versions are pinned to make the build
+# almost verbatim, but mamba package versions are pinned to make the build
 # slightly more reproducible. (However, the apt-get update means that
 # it's still not entirely reproducible.)
 
