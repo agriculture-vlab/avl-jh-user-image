@@ -21,7 +21,7 @@ FROM $ROOT_CONTAINER
 
 LABEL maintainer="Agriculture Virtual Laboratory <contact@agriculturevlab.eu>"
 LABEL name="avl-user-env"
-LABEL version="4.0.0"
+LABEL version="4.0.1"
 LABEL description="User environment for AVL JupyterHub deployment"
 
 ARG NB_USER="jovyan"
@@ -381,7 +381,7 @@ RUN mamba install --quiet --yes \
     'xcube-cmems==0.1.5' \
     'xcube-sh==0.11.0' \
     'xcube==1.5.1' \
-    'xcube_geodb==1.0.6' \
+    'xcube_geodb==1.0.9' \
     'xlrd==2.0.1' \
     'zarr==2.18.2' && \
     mamba clean --all -f -y && \
