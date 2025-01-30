@@ -1,3 +1,8 @@
+## Changes in 4.0.1
+
+* Update xcube_geodb package to 1.0.9 to maintain compatibility with new
+  server version. (#26)
+
 ## Changes in 4.0.0
 
 * Rewrite dockerfile based on revision 1c44e6d6e8f7 (2024-05-30) of the
