@@ -53,3 +53,12 @@ can check the `jupyterhub` version in the user image with the following command:
 docker run -it --rm quay.io/bcdev/avl-user:<tag> \
     python3 -c 'import jupyterhub; print(jupyterhub.__version__)'
 ```
+
+## Updating package versions in the docker image
+
+It's important that the package versions in the Dockerfile are specified
+exactly (rather than just having a minimum version specified), to make sure
+that the build is as reproducible as possible. However, this makes it more
+laborious to update package versions in the Docker image. The
+`update_package_list.py` script in this repository partially automates this
+task; see the docstring in the script for details on usage.
